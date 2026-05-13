@@ -1,4 +1,3 @@
-using System;
 
 public class JournalEntry
 {
@@ -11,7 +10,7 @@ public class JournalEntry
         "Who did you talk with today?",
     };
 
-    public void createJournalEntry()
+    public void CreateJournalEntry()
     {
         _date = DateTime.Now.ToShortDateString();
         _prompt = _prompts[0];
@@ -23,5 +22,10 @@ public class JournalEntry
     public void DisplayJournalEntry()
     {
         Console.WriteLine($"{_date}, {_prompt}, {_response}");
+    }
+
+    public string CreateFileSystemString()
+    {
+        return $"{_date}#{_prompt}#{_response}";
     }
 }
