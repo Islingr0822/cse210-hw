@@ -1,32 +1,35 @@
-class Reference
+public class Reference
 {
     private string _book;
-    private int _chapter;
+    private int _startChapter;
     private int _startVerse;
-    private int _endVerse;
+    private int? _endVerse;
 
-    public void SetBook()
+    public Reference(string book, int chapter, int verse)
     {
-        Console.WriteLine("Please enter the book the scripture is in: ");
-        _book = Console.ReadLine();
-    }
-    
-    public void SetChapter()
-    {
-        Console.WriteLine("Please enter the chapter number for the scripture: ");
-        _chapter = int.Parse(Console.ReadLine());
+        _book = book;
+        _startChapter = chapter;
+        _startVerse = verse;
+        _endVerse = null;
     }
 
-    public void SetStartVerse()
+    public Reference(string book, int chapter, int startVerse, int endVerse)
     {
-        Console.WriteLine("Please enter start verse: ");
-        _startVerse = int.Parse(Console.ReadLine());
-
+        _book = book;
+        _startChapter = chapter;
+        _startVerse = startVerse;
+        _endVerse = endVerse;
     }
 
-    public void SetEndVerse()
+    public override string ToString()
     {
-        Console.WriteLine("Please enter the end verse: ");
-        _endVerse = int.Parse(Console.ReadLine());
+        if (_endVerse.HasValue && _endVerse != _startVerse)
+        {
+            return $"{_book} {_startChapter}:{_startVerse}-{_endVerse}";
+        }
+        else
+        {
+            return $"{_book} {_startChapter}:{_startVerse}";
+        }
     }
 }

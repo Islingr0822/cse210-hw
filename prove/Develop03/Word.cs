@@ -1,40 +1,37 @@
-class Word
+// Word.cs
+public class Word
 {
-    private string _word;
-    private bool _hidden;
+    private string _text;
+    private bool _isHidden;
 
-    public Word(string word)
+    public Word(string text)
     {
-        _word = word;
-        _hidden = false;
-    }
-
-    public string GetWordString()
-    {
-        string tempWord = _word;
-
-        if (_hidden)
-        {
-            foreach(char c in _word)
-            {
-                tempWord += '_';
-            }
-        }
-        return tempWord;
+        _text = text;
+        _isHidden = false;
     }
 
     public void Hide()
     {
-        _hidden = true;
+        _isHidden = true;
+    }
+
+    public void Show()
+    {
+        _isHidden = false;
     }
 
     public bool IsHidden()
     {
-        return _hidden;
+        return _isHidden;
     }
 
-    public void DisplayWord()
+    public string GetDisplayText()
     {
-        Console.WriteLine(GetWordString());
+        return _isHidden ? new string('_', _text.Length) : _text;
+    }
+
+    public string GetOriginalText()
+    {
+        return _text;
     }
 }
