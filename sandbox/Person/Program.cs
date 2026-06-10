@@ -9,6 +9,9 @@
         Console.WriteLine(myPoliceMan.GetPersonInformation());
 
         Console.WriteLine(myPoliceMan.GetpoliceManInformation());
+
+        Doctor myDoctor = new Doctor("M.D.", "John", "Johnson", 43, 187);
+        Console.WriteLine(myDoctor.GetDoctorInformation());
     }
 
     
