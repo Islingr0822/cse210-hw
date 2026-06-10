@@ -4,6 +4,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop04 World!");
+        BaseActivity myActivity = new BaseActivity("breathing", "this will help you breath");
+        myActivity.StartActivity();
+        myActivity.RunCountdown("Breath in:", 10);
+
+        Breathing myBreathing = new Breathing("This will help you breath better");
+        myBreathing.RunActivity();
+        
     }
 }
