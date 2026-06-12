@@ -8,5 +8,6 @@ class Listing : BaseActivity
     public void RunActivity()
     {
         StartActivity();
+        EndActivity();
     }
 }

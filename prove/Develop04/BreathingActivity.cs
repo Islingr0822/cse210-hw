@@ -7,9 +7,14 @@ class Breathing : BaseActivity
 
     public void RunActivity()
     {
-        StartActivity();
-        RunCountdown("Breath in", 4);
-        RunCountdown("Breath out", 6);
+        int duration = StartActivity();
+        for (int i = 0; i < duration / 10; i++)
+        {
+            RunCountdown("Breath in", 5);
+            RunCountdown("Breath out", 5);
+        }
+        EndActivity();
+        
     }
 
 }
