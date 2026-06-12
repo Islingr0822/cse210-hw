@@ -8,10 +8,17 @@ class Program
         // myActivity.StartActivity();
         // myActivity.RunCountdown("Breath in:", 10);
         Console.WriteLine("Welcome to the mindfullness program!");
+        Console.WriteLine("");
         string input = "0";
         while (input != "q")
         {
-            Console.Write("Please enter your choice: ");
+            Console.WriteLine("Please enter the desired activity: ");
+            Console.WriteLine("1. Breathing");
+            Console.WriteLine("2. Reflection");
+            Console.WriteLine("3. Listing");
+            Console.WriteLine("q. Quit");
+            Console.Write("Your selection: ");
+
             input = Console.ReadLine();
             if (input == "1")
             {

@@ -7,8 +7,8 @@ class Breathing : BaseActivity
 
     public void RunActivity()
     {
-        int duration = StartActivity();
-        for (int i = 0; i < duration / 10; i++)
+        decimal duration = StartActivity();
+        for (int i = 0; i < Math.Floor(duration / 10); i++)
         {
             RunCountdown("Breath in", 5);
             RunCountdown("Breath out", 5);

@@ -19,16 +19,22 @@ class BaseActivity
     {
         Console.Clear();
         Console.WriteLine($"Welcome to the {_name} activity!");
+        Console.WriteLine("");
+        
         Console.WriteLine(_description);
-        Console.WriteLine("How many seconds for this activity?");
+        Console.WriteLine("");
+        
+        Console.Write("How many seconds for this activity? ");
         _duration = int.Parse(Console.ReadLine());
+        Console.Clear();
         return _duration;
     }
 
     public void EndActivity()
     {
         Console.WriteLine($"Great Job!");
-        Console.WriteLine($"You've completed another {_duration} seconds of {_name}");
+        Console.WriteLine("");
+        Console.Write($"You've completed another {_duration} seconds of {_name}");
         Spinner();
         Console.Clear();
 
