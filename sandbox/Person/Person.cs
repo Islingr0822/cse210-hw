@@ -18,5 +18,20 @@ class Person
     {
         return $"Name: {_firstName} {_lastName}, age: {_age}, weight: {_weight} lbs";
     }
+
+    public void ChangeWeight(int update)
+    {
+        _weight += update;
+    }
+
+    public void SetAge(int age)
+    {
+        _age = age;
+        if (age < 0 || age > 115)
+        {
+            _age = 0;
+            Console.WriteLine("Incorrect age");
+        }
+    }
 }
 
