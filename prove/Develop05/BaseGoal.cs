@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-class BaseGoal
+abstract class BaseGoal
 {
     
     
@@ -22,20 +22,20 @@ class BaseGoal
         _goalType = "";
     }
 
-    public void SetName()
+    protected void SetName()
     {
         Console.Write("What is the name of the goal?: ");
         _name = Console.ReadLine();
     }
 
-    public void SetDescription()
+    protected void SetDescription()
     {
         Console.Write($"Enter the description for {_name} goal: ");
         _description = Console.ReadLine();
 
     }
 
-    public void NumberOfPoints()
+    protected void NumberOfPoints()
     {
         Console.Write($"Enter the points earned for {_name} goal: ");
         _numberOfPoints = int.Parse(Console.ReadLine());
@@ -56,4 +56,10 @@ class BaseGoal
         }
         return $"[{statusMarker}] Name: {_name}, Description: {_description}, points earned {_numberOfPoints}";
     }
+
+    public abstract void CreateGoal();
+    public abstract void RecordEvent();
+    
+        
+    
 }
