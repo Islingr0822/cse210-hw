@@ -44,6 +44,11 @@ abstract class BaseGoal
     public int MarkComplete()
     {
         _status = true;
+        return AwardPoints();
+    }
+
+    public int AwardPoints()
+    {
         return _numberOfPoints;
     }
 

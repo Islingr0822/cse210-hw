@@ -17,6 +17,11 @@ class Program
         Console.WriteLine(myGoal.GetDisplayString());
         myGoal.RecordEvent();
         Console.WriteLine(myGoal.GetDisplayString());
+
+        EternalGoal myGoal2 = new EternalGoal();
+        myGoal2.CreateGoal();
+        Console.WriteLine(myGoal2.GetDisplayString());
+
     }
 }
 
