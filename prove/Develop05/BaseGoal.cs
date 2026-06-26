@@ -2,16 +2,12 @@ using System.Runtime.CompilerServices;
 
 abstract class BaseGoal
 {
-    
-    
-    
     private string _name;
     private string _description;
     private int _numberOfPoints;
 
     private bool _status;
-    private string _goalType;
-    
+
 
     public BaseGoal()
     {
@@ -19,7 +15,6 @@ abstract class BaseGoal
         _description = "";
         _numberOfPoints = 0;
         _status = false;
-        _goalType = "";
     }
 
     protected void SetName()
@@ -61,6 +56,7 @@ abstract class BaseGoal
         }
         return $"[{statusMarker}] Name: {_name}, Description: {_description}, points earned {_numberOfPoints}";
     }
+
 
     public abstract void CreateGoal();
     public abstract void RecordEvent();

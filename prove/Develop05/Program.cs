@@ -8,9 +8,11 @@ class Program
         Console.WriteLine("");
         string input = "0";
         
+        Goals myGoals = new Goals();
+        
         while (input != "q")
         {
-            Console.Clear();
+            // Console.Clear();
 
             Console.WriteLine("Please select one of the following: ");
             Console.WriteLine("");
@@ -27,36 +29,49 @@ class Program
             if (input == "1")
             {
                 Console.WriteLine("What type of goal? ");
-                Console.WriteLine("");
+                Console.WriteLine(""); 
                 Console.WriteLine("1. Simple Goal");
                 Console.WriteLine("2. Eternal Goal");
                 Console.WriteLine("3. Checklist Goal");
+                Console.WriteLine("");
                 
-                string goalInput = "q";
+                string goalInput = "0";
+
+                Console.Write("Input: ");
+                goalInput = Console.ReadLine();
+
 
                 if (goalInput == "1")
                 {
                     SimpleGoal myGoal = new SimpleGoal();
                     myGoal.CreateGoal();
+                    string goal = myGoal.GetDisplayString();
+                    myGoals.AddGoal("Simple Goal", goal);
                 }
 
                 else if (goalInput == "2")
                 {
                     EternalGoal myGoal = new EternalGoal();
                     myGoal.CreateGoal();
+                    string goal = myGoal.GetDisplayString();
+                    myGoals.AddGoal("Eternal Goal", goal);
                 }
 
                 else if (goalInput == "3")
                 {
                     ChecklistGoal myGoal = new ChecklistGoal();
                     myGoal.CreateGoal();
+                    string goal = myGoal.GetDisplayString();
+                    myGoals.AddGoal("Eternal Goal", goal);
                 }
   
             }
 
             else if (input == "2")
             {
-                
+                Console.WriteLine("");
+                myGoals.ListGoals();
+                Console.WriteLine("");
             }
             
             else if (input == "3")
