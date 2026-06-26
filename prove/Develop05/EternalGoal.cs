@@ -16,9 +16,9 @@ class EternalGoal : BaseGoal
         NumberOfPoints();
     }
 
-    public override void RecordEvent()
+    public override int RecordEvent()
     {
-        AwardPoints();
+        return AwardPoints();
     }
 
     public override string GetStringRepresentation()

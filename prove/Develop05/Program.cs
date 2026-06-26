@@ -78,10 +78,25 @@ class Program
             }
             else if (input == "5")
             {
+                Console.WriteLine("");
+                myGoals.ListGoals();
+                Console.Write("Which goal did you accomplish? ");
+                int goalNumber = int.Parse(Console.ReadLine());
+                int pointsEarned = myGoals.RecordEventAt(goalNumber - 1);
+                myPoints.UpdatePoints(pointsEarned);
+
+                if (pointsEarned > 0)
+                {
+                    Console.WriteLine($"Congratulations! You have earned {pointsEarned} points!");
+                }
+                else
+                {
+                    Console.WriteLine("You have already completed this goal!");
+                }
+
+                Console.WriteLine("");
             }
-            else if (input == "q")
-            {
-            }
+            else if (input == "q"){}
             else
             {
                 Console.WriteLine("Incorrect value, please try again");

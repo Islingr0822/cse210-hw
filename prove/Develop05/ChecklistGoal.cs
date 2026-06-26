@@ -25,14 +25,14 @@ class ChecklistGoal : BaseGoal
 
     public int BonusPoints()
     {
-        Console.WriteLine("How many bonus points for this goal? ");
+        Console.Write("How many bonus points for this goal? ");
         _bonusPoints = int.Parse(Console.ReadLine());
         return _bonusPoints;
     }
 
     public int SetTimesCompleted()
     {
-        Console.WriteLine("How many times should this goal be completed? ");
+        Console.Write("How many times should this goal be completed? ");
         _completedGoal = int.Parse(Console.ReadLine());
         return _completedGoal;
     }
@@ -46,9 +46,23 @@ class ChecklistGoal : BaseGoal
         BonusPoints();
     }
 
-    public override void RecordEvent()
+    public override int RecordEvent()
     {
-        MarkComplete();
+        if (_status)
+        {
+            return 0;
+        }
+
+        _timesCompleted++;
+        int pointsEarned = _numberOfPoints;
+
+        if (_timesCompleted >= _completedGoal)
+        {
+            _status = true;
+            pointsEarned += _bonusPoints;
+        }
+
+        return pointsEarned;
     }
 
     public override string GetDisplayString()

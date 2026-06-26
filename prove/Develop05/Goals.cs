@@ -9,10 +9,21 @@ class Goals
 
     public void ListGoals()
     {
-        foreach (BaseGoal goal in _goals)
+        if (_goals.Count == 0)
         {
-            Console.WriteLine(goal.GetDisplayString());
+            Console.WriteLine("You haven't created any goals yet.");
+            return;
         }
+
+        for (int i = 0; i < _goals.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {_goals[i].GetDisplayString()}");
+        }
+    }
+
+    public int RecordEventAt(int index)
+    {
+        return _goals[index].RecordEvent();
     }
 
     public void SaveGoals(string filename, int pointTotal)
