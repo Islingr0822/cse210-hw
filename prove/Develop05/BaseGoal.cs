@@ -1,13 +1,9 @@
-using System.Runtime.CompilerServices;
-
 abstract class BaseGoal
 {
-    private string _name;
-    private string _description;
-    private int _numberOfPoints;
-
-    private bool _status;
-
+    protected string _name;
+    protected string _description;
+    protected int _numberOfPoints;
+    protected bool _status;
 
     public BaseGoal()
     {
@@ -15,6 +11,14 @@ abstract class BaseGoal
         _description = "";
         _numberOfPoints = 0;
         _status = false;
+    }
+
+    protected BaseGoal(string name, string description, int points, bool status)
+    {
+        _name = name;
+        _description = description;
+        _numberOfPoints = points;
+        _status = status;
     }
 
     protected void SetName()
@@ -27,7 +31,6 @@ abstract class BaseGoal
     {
         Console.Write($"Enter the description for {_name} goal: ");
         _description = Console.ReadLine();
-
     }
 
     protected void NumberOfPoints()
@@ -57,10 +60,30 @@ abstract class BaseGoal
         return $"[{statusMarker}] Name: {_name}, Description: {_description}, points earned {_numberOfPoints}";
     }
 
+    public abstract string GetStringRepresentation();
+
+    public static BaseGoal CreateFromFileLine(string line)
+    {
+        string[] parts = line.Split(':', 2);
+        string goalType = parts[0];
+        string details = parts[1];
+
+        if (goalType == "SimpleGoal")
+        {
+            return SimpleGoal.CreateFromString(details);
+        }
+        else if (goalType == "EternalGoal")
+        {
+            return EternalGoal.CreateFromString(details);
+        }
+        else if (goalType == "ChecklistGoal")
+        {
+            return ChecklistGoal.CreateFromString(details);
+        }
+
+        throw new Exception($"Unknown goal type: {goalType}");
+    }
 
     public abstract void CreateGoal();
     public abstract void RecordEvent();
-    
-        
-    
 }
