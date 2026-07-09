@@ -31,6 +31,7 @@ using WarlockType = DnDCharacterManager.Character.Classes.Warlock;
 using WizardType = DnDCharacterManager.Character.Classes.Wizard;
 using ArtificerType = DnDCharacterManager.Character.Classes.Artificer;
 using DivineDomain = DnDCharacterManager.Character.Classes.DivineDomain;
+using DruidCircle = DnDCharacterManager.Character.Classes.DruidCircle;
 
 namespace DnDCharacterManager.Managers
 {
@@ -248,6 +249,82 @@ namespace DnDCharacterManager.Managers
                 "Knowledge", "Life", "Light", "War",
                 "Trickery", "Death", "Nature", "Tempest", "Peace"
             };
+        }
+
+        // ==================== Druid-Specific Factory Methods ====================
+
+        /// <summary>
+        /// Create a druid character with a specific divine domain.
+        /// </summary>
+        public virtual DruidType CreateDruid(string name, int level, RaceType race, BackgroundType background, DruidCircle circle)
+        {
+            DruidType druid = new DruidType(name, level, race, background);
+            druid.Circle = circle;
+            _characters.Add(druid);
+            Console.WriteLine($"Created Druid character: {name} with Circle of {circle}");
+            return druid;
+        }
+
+        /// <summary>
+        /// Create a druid character with a specific divine domain by string name.
+        /// </summary>
+        public virtual DruidType CreateDruid(string name, int level, string raceName, string backgroundName, string circleName)
+        {
+            RaceType race = CreateRace(raceName);
+            BackgroundType bg = CreateBackground(backgroundName);
+
+            DruidCircle circle;
+            if (Enum.TryParse(circleName, true, out circle))
+            {
+                // Parse succeeded
+            }
+            else
+            {
+                Console.WriteLine($"Invalid circle '{circleName}'. Defaulting to Land.");
+                circle = DruidCircle.Land;
+            }
+
+            return CreateDruid(name, level, race, bg, circle);
+        }
+
+        /// <summary>
+        /// Get available druid circles for the player to choose from.
+        /// </summary>
+        public static List<string> GetAvailableCircles()
+        {
+            return new List<string>
+            {
+                "Land", "Moon", "Spores", "Shepherd",
+                "Dreams", "Stars", "Wildfire", "Grovewhip"
+            };
+        }
+
+        /// <summary>
+        /// Get a description of a druid circle.
+        /// </summary>
+        public static string GetCircleDescription(DruidCircle circle)
+        {
+            switch (circle)
+            {
+                case DruidCircle.Land:
+                    return "Nature's Ward and Natural Recovery. Master of the natural world.";
+                case DruidCircle.Moon:
+                    return "Combat Wild Shape and Elemental Wild Shape. Fight as a beast.";
+                case DruidCircle.Spores:
+                    return "Spore Sphere and death thym benefits. Channel necrotic energy.";
+                case DruidCircle.Shepherd:
+                    return "Fey Life Spirit and Guardian of Life. Protect allies with fey spirits.";
+                case DruidCircle.Dreams:
+                    return "Dream Walking and Sentinel of Dreams. Travel the Dreaming Deep.";
+                case DruidCircle.Stars:
+                    return "Far Step and Awakened Starlight. Harness cosmic power.";
+                case DruidCircle.Wildfire:
+                    return "Tame the Flames and Brilliance of the Grove. Control wildfire spirits.";
+                case DruidCircle.Grovewhip:
+                    return "Guardian of the Grove and Swift Growth. Defend the grove fiercely.";
+                default:
+                    return "Unknown circle.";
+            }
         }
 
         /// <summary>
