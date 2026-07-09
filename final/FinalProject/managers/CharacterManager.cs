@@ -30,6 +30,7 @@ using SorcererType = DnDCharacterManager.Character.Classes.Sorcerer;
 using WarlockType = DnDCharacterManager.Character.Classes.Warlock;
 using WizardType = DnDCharacterManager.Character.Classes.Wizard;
 using ArtificerType = DnDCharacterManager.Character.Classes.Artificer;
+using DivineDomain = DnDCharacterManager.Character.Classes.DivineDomain;
 
 namespace DnDCharacterManager.Managers
 {
@@ -198,6 +199,84 @@ namespace DnDCharacterManager.Managers
             else
             {
                 Console.WriteLine($"Character '{characterName}' not found.");
+            }
+        }
+
+        // ==================== Cleric-Specific Factory Methods ====================
+
+        /// <summary>
+        /// Create a cleric character with a specific divine domain.
+        /// </summary>
+        public virtual ClericType CreateCleric(string name, int level, RaceType race, BackgroundType background, DivineDomain domain)
+        {
+            ClericType cleric = new ClericType(name, level, race, background);
+            cleric.Domain = domain;
+            _characters.Add(cleric);
+            Console.WriteLine($"Created Cleric character: {name} with {domain} domain");
+            return cleric;
+        }
+
+        /// <summary>
+        /// Create a cleric character with a specific divine domain by string name.
+        /// </summary>
+        public virtual ClericType CreateCleric(string name, int level, string raceName, string backgroundName, string domainName)
+        {
+            RaceType race = CreateRace(raceName);
+            BackgroundType bg = CreateBackground(backgroundName);
+            
+            DivineDomain domain;
+            if (Enum.TryParse(domainName, true, out domain))
+            {
+                // Parse succeeded
+            }
+            else
+            {
+                Console.WriteLine($"Invalid domain '{domainName}'. Defaulting to Knowledge.");
+                domain = DivineDomain.Knowledge;
+            }
+
+            return CreateCleric(name, level, race, bg, domain);
+        }
+
+        /// <summary>
+        /// Get available divine domains for the player to choose from.
+        /// </summary>
+        public static List<string> GetAvailableDomains()
+        {
+            return new List<string>
+            {
+                "Knowledge", "Life", "Light", "War",
+                "Trickery", "Death", "Nature", "Tempest", "Peace"
+            };
+        }
+
+        /// <summary>
+        /// Get a description of a divine domain.
+        /// </summary>
+        public static string GetDomainDescription(DivineDomain domain)
+        {
+            switch (domain)
+            {
+                case DivineDomain.Knowledge:
+                    return "Bonus proficiencies in History and Arcana. Channel Divinity reveals book contents.";
+                case DivineDomain.Life:
+                    return "Enhanced healing spells. Channel Divinity restores hit points.";
+                case DivineDomain.Light:
+                    return "Cantrips deal extra radiant damage. Channel Divinity creates bright light.";
+                case DivineDomain.War:
+                    return "Martial weapon and heavy armor proficiency. Channel Divinity grants extra attack.";
+                case DivineDomain.Trickery:
+                    return "Blessing of the Trickster. Channel Divinity: Invoke Duplicity.";
+                case DivineDomain.Death:
+                    return "Enhanced damage vs undead. Channel Divinity: Consume Dead.";
+                case DivineDomain.Nature:
+                    return "Access to nature spell list. Charming Tact feature.";
+                case DivineDomain.Tempest:
+                    return "Lightning Bolt cantrip. Wounding Strike. Channel Divinity: Thunderbolt Strike.";
+                case DivineDomain.Peace:
+                    return "Radiant Burst feature. Emboldening Bond with allies.";
+                default:
+                    return "Unknown domain.";
             }
         }
 
