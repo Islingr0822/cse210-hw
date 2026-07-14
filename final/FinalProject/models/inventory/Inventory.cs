@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DnDCharacterManager.Item;
+using ItemClass = DnDCharacterManager.Item.Item;
 
 namespace DnDCharacterManager.Inventory
 {
@@ -9,31 +9,31 @@ namespace DnDCharacterManager.Inventory
     /// </summary>
     public class Inventory
     {
-        protected List<Item> _items;
+        protected List<ItemClass> _items;
         protected int _capacity;
         protected string _ownerName;
 
         public Inventory()
         {
-            _items = new List<Item>();
+            _items = new List<ItemClass>();
             _capacity = 50;
             _ownerName = "Unnamed";
         }
 
         public Inventory(string ownerName, int capacity = 50)
         {
-            _items = new List<Item>();
+            _items = new List<ItemClass>();
             _capacity = capacity;
             _ownerName = ownerName;
         }
 
         // Properties
-        public List<Item> Items { get => _items; set => _items = value; }
+        public List<ItemClass> Items { get => _items; set => _items = value; }
         public int Capacity { get => _capacity; set => _capacity = value; }
         public string OwnerName { get => _ownerName; set => _ownerName = value; }
 
         // Methods
-        public virtual void AddItem(Item item)
+        public virtual void AddItem(ItemClass item)
         {
             if (item == null)
             {
@@ -47,8 +47,8 @@ namespace DnDCharacterManager.Inventory
 
         public virtual bool RemoveItem(string itemName)
         {
-            Item? itemToRemove = _items.Find(i => i.Name == itemName);
-            if (itemToRemove != null)
+            ItemClass? itemToRemove = _items.Find(i => i.Name == itemName);
+            if (itemToRemove is not null)
             {
                 _items.Remove(itemToRemove);
                 Console.WriteLine($"{_ownerName} removes '{itemName}' from their inventory.");
@@ -85,7 +85,7 @@ namespace DnDCharacterManager.Inventory
             return total;
         }
 
-        public virtual Item? FindItem(string itemName)
+        public virtual ItemClass? FindItem(string itemName)
         {
             return _items.Find(i => i.Name == itemName);
         }

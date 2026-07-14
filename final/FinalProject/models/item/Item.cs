@@ -76,7 +76,7 @@ namespace DnDCharacterManager.Item
             _weight = weight;
             _value = value;
             _rarity = rarity;
-            _description = string.IsNullOrEmpty(description) ? $"{name} - A {rarity.ToLower()} item." : description;
+            _description = string.IsNullOrEmpty(description) ? $"{name} - A {rarity.ToString().ToLowerInvariant()} item." : description;
         }
 
         // Properties
