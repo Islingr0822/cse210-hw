@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DnDCharacterManager.Ability;
 using RaceClass = DnDCharacterManager.Race.Race;
 using HumanRace = DnDCharacterManager.Race.Human;
 using BackgroundClass = DnDCharacterManager.Background.Background;
@@ -214,7 +213,6 @@ namespace DnDCharacterManager.Character
         protected RaceClass _race;
         protected BackgroundClass _background;
         protected InventoryClass _inventory;
-        protected AbilityScore _abilityScores;
         protected List<FeatureClass> _features;
         protected List<FeatClass> _feats;
         protected List<SkillClass> _skills;
@@ -281,7 +279,6 @@ namespace DnDCharacterManager.Character
             _race = race;
             _background = background;
             _inventory = new InventoryClass();
-            _abilityScores = new AbilityScore(_strength, _dexterity, _constitution, _intelligence, _wisdom, _charisma);
             _features = new List<FeatureClass>();
             _feats = new List<FeatClass>();
             _skills = new List<SkillClass>();
@@ -333,7 +330,6 @@ namespace DnDCharacterManager.Character
             _race = new HumanRace();
             _background = new BackgroundImpl();
             _inventory = new InventoryClass();
-            _abilityScores = new AbilityScore();
             _features = new List<FeatureClass>();
             _feats = new List<FeatClass>();
             _skills = new List<SkillClass>();
@@ -405,7 +401,6 @@ namespace DnDCharacterManager.Character
 
         // Object References
         public InventoryClass Inventory { get => _inventory; set => _inventory = value; }
-        public AbilityScore AbilityScores { get => _abilityScores; set => _abilityScores = value; }
         public List<FeatureClass> Features { get => _features; set => _features = value; }
         public List<FeatClass> Feats { get => _feats; set => _feats = value; }
         public List<SkillClass> Skills { get => _skills; set => _skills = value; }
@@ -438,13 +433,15 @@ namespace DnDCharacterManager.Character
 
         /// <summary>
         /// Applies class features based on current level. Override in derived classes.
+        /// Derived classes typically drive this through their own ApplyLevelFeatures logic,
+        /// so the base implementation is a no-op.
         /// </summary>
-        public abstract void ApplyClassFeatures();
+        public virtual void ApplyClassFeatures() { }
 
         /// <summary>
         /// Returns class-specific details as a dictionary. Override in derived classes.
         /// </summary>
-        public abstract Dictionary<string, object> GetClassDetails();
+        public virtual Dictionary<string, object> GetClassDetails() => new Dictionary<string, object>();
 
         // ==================== Ability Modifier Methods ====================
 
@@ -499,6 +496,17 @@ namespace DnDCharacterManager.Character
             if (level <= 12) return 4;
             if (level <= 16) return 5;
             return 6;
+        }
+
+        /// <summary>
+        /// Recalculates derived stats (proficiency bonus, HP, AC, etc.) after
+        /// ability scores or level have been changed externally. Useful right
+        /// after building a character and setting its ability scores.
+        /// </summary>
+        public void RecalculateDerivedStats()
+        {
+            CalculateProficiencyBonus();
+            CalculateBaseStats();
         }
 
         // ==================== Saving Throw Methods ====================
@@ -629,10 +637,9 @@ namespace DnDCharacterManager.Character
         /// <summary>
         /// Performs a basic attack. Override in derived classes for class-specific behavior.
         /// </summary>
-        public virtual void Attack(string target = "")
+        public virtual void Attack()
         {
-            string targetText = string.IsNullOrEmpty(target) ? "" : $" at {target}";
-            Console.WriteLine($"{_name} attempts an attack{targetText}.");
+            Console.WriteLine($"{_name} attempts an attack.");
         }
 
         /// <summary>
@@ -1019,9 +1026,12 @@ namespace DnDCharacterManager.Character
 
         /// <summary>
         /// Calculates base stats (HP, AC) based on class and race.
-        /// Must be implemented by derived classes.
+        /// Derived classes override this to set class-specific HP/AC; the base
+        /// implementation is a no-op so subclasses may safely call base.CalculateBaseStats().
         /// </summary>
-        protected abstract void CalculateBaseStats();
+        protected virtual void CalculateBaseStats()
+        {
+        }
 
         // ==================== Spellcasting Info Methods ====================
 

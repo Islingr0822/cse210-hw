@@ -86,7 +86,7 @@ namespace DnDCharacterManager.Character.Classes
 
         private int _superiorityDiceCount;
         private int _superiorityDieSize;
-        private List<string> _knownManeuvers;
+        private List<string> _knownManeuvers = new List<string> { "PreciseAttack", "GoadingAttack", "Parry", "SweepingStrike" };
         private const int MaxManeuversKnown = 10;
         private int _maneuversKnown;
         private bool _recoveryUsedThisRest;

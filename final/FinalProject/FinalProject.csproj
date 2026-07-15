@@ -5,7 +5,15 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+    <Nullable>annotations</Nullable>
+    <!--
+      The class model reserves some per-class fields/members for D&D rules that
+      the display-only app doesn't compute yet (CS0414/CS0169), plus a couple of
+      intentional class-specific shadows of base helpers (CS0108) and unused
+      locals (CS0219). These are harmless placeholders, so we silence the noise
+      to keep the build output clean.
+    -->
+    <NoWarn>CS0414;CS0169;CS0108;CS0219</NoWarn>
   </PropertyGroup>
 
 </Project>

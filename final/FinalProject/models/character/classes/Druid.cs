@@ -100,7 +100,7 @@ namespace DnDCharacterManager.Character.Classes
         /// <summary>
         /// List of spells currently known by the druid.
         /// </summary>
-        public List<SpellClass> KnownSpells { get; set; }
+        public List<SpellClass> KnownSpells { get; set; } = new List<SpellClass>();
 
         /// <summary>
         /// Spell save DC = 8 + proficiency bonus + wisdom modifier.
@@ -115,12 +115,12 @@ namespace DnDCharacterManager.Character.Classes
         /// <summary>
         /// Spell slots available by level [1=1st level, 2=2nd level, etc.].
         /// </summary>
-        public Dictionary<int, int> SpellSlotsPerLevel { get; set; }
+        public Dictionary<int, int> SpellSlotsPerLevel { get; set; } = new Dictionary<int, int>();
 
         /// <summary>
         /// Remaining spell slots available for rest.
         /// </summary>
-        public Dictionary<int, int> RemainingSpellSlots { get; set; }
+        public Dictionary<int, int> RemainingSpellSlots { get; set; } = new Dictionary<int, int>();
 
         // ==================== Feature Flags by Level ====================
 

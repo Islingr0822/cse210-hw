@@ -56,12 +56,12 @@ namespace DnDCharacterManager.Character.Classes
         /// <summary>
         /// Names of spells that have been infused into items.
         /// </summary>
-        public List<string> InfusedSpells { get; set; }
+        public List<string> InfusedSpells { get; set; } = new List<string>();
 
         /// <summary>
         /// Spells known by the Artificer from their spellbook.
         /// </summary>
-        public List<SpellType> KnownSpells { get; set; }
+        public List<SpellType> KnownSpells { get; set; } = new List<SpellType>();
 
         /// <summary>
         /// Spell save DC for Artificer spells.
@@ -76,12 +76,12 @@ namespace DnDCharacterManager.Character.Classes
         /// <summary>
         /// Spell slots available by level [0=cantrip, 1=1st level, etc.].
         /// </summary>
-        public Dictionary<int, int> SpellSlotsPerLevel { get; set; }
+        public Dictionary<int, int> SpellSlotsPerLevel { get; set; } = new Dictionary<int, int>();
 
         /// <summary>
         /// Remaining spell slots available for rest.
         /// </summary>
-        public Dictionary<int, int> RemainingSpellSlots { get; set; }
+        public Dictionary<int, int> RemainingSpellSlots { get; set; } = new Dictionary<int, int>();
 
         // ==================== Static Spell Lists (References to spells) ====================
 
